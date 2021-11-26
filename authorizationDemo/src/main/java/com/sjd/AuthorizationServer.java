@@ -1,12 +1,9 @@
-package com.sjd;/**
- * @projectname authDemo
- * @author xinao
- * @create 2021/10/22
- */
+package com.sjd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author sunjidong
@@ -17,7 +14,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class AuthorizationServer {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(AuthorizationServer.class, args);
-
     }
 
 }
