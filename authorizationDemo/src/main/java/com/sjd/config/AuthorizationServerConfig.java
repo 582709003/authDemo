@@ -38,7 +38,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
    /* @Autowired
-    private AuthorizationCodeServices authorizationCodeServices;
+    private AuthorizationCodeServices;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -82,14 +82,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //这里其实就是配置ClientDetailsService的方式，是放在内存还是放在数据库，目前只有这两种实现方式
+        //这里其实就是配置ClientDetailsService的方式，客户端的信息是放在内存还是放在数据库，目前只有这两种实现方式
         clients.inMemory()
                 // 配置client_id
                 .withClient("client")
                 // 配置client_secret
                 .secret(passwordEncoder.encode("112233"))
                 //可以访问哪些资源
-                .resourceIds("aaaa")
+                .resourceIds("aaaa","","","")
                 // 配置访问token的有效期,一般由授权服务器端控制
                 .accessTokenValiditySeconds(3600)
                 // 配置刷新token的有效期,一般由授权服务器端控制
@@ -119,7 +119,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      *  AuthorizationServerEndpointsConfigurer对于不同类型的授权，也需要配置不同的属性
      *      authticationmanager:认证管理器，当选择了密码模式时就需要这个对象来进行鉴权
      *      userDetailService：用户主体管理服务，如果设置了这个属性，那说明有一个自己的实现
-     *      authorizationCodeServices:这个属性时用来设置授权服务器的，主要用于授权码类型的模式
+     *      authorizationCodeServices:这个属性是用来设置授权服务器的，主要用于授权码类型的模式
      *      implicitGrantService：这是用来设置隐式授权模式的状态
      *      tokenGranter：使用这个属性意味着授权完全交由自己掌控，并会忽略掉以上几个属性，
      *                   即标准的四种模式已经满足不了你的业务才会考虑使用这个
@@ -128,7 +128,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      *      AuthorizationServerEndpointsConfigurer这个对象首先可以通过pathMapping()方法来配置端点url的链接地址，即将oauth默认的
      *      链接地址改成其他的url
      *
-     *      * 配置 AuthorizationServerEndpointsConfigurer众多相关类，包括配置身份认证器，配置认证方式，TokenStore，
+     *      * 配置 AuthorizationServerEndpointsConfigurer 众多相关类，包括配置身份认证器，配置认证方式，TokenStore，
      *        TokenGranter，OAuth2RequestFactory
      *      * pathMapping() 方法配置端点URL：
      *      * /oauth/authorize：授权端点
@@ -151,7 +151,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @author sunjidong
      * @date 2021/10/22
      * @Describtion
-     *  * AuthorizationServerTokenServices接口定义了一些对令牌进行管理的必要操作；
+     *  * AuthorizationServerTokenServices 接口定义了一些对令牌进行管理的必要操作；
      *      * 实现AuthorizationServerTokenServices这个接口，需要继承DefaultTokenServices这个类。该类中包含了一些有用的实现，你可以使用它
      *      * 来修改令牌的格式和令牌的存储。默认情况下，它在创建一个令牌时，是使用随机值来进行填充的。这个类中完成了令牌管理的几乎所有事情，唯一需要依赖的是
      *      * spring容器中的一个tokenStore接口实现类来定制令牌持久化。而这个tokenStore有一个默认的实现就是InMemoryTokenStore，这个类会将令牌
